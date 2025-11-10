@@ -6,12 +6,18 @@ export function Navbar() {
   const { theme, toggleTheme } = useTheme()
 
   return (
-    <nav className="relative z-10 bg-gray-100 dark:bg-[#1f1f1f] transition-colors">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-white dark:bg-black backdrop-blur-lg border-1 border-gray-300/80 dark:border-gray-700/80 rounded-2xl shadow-xl transition-all">
+        <div className="flex items-center justify-between h-14 md:h-16 px-4 md:px-6">
           {/* Logo */}
-          <div className="text-2xl font-semibold text-[#FF6B35] tracking-tight">
-            Automatix
+          <div className="flex items-center">
+            <img
+              src="/automatixlogo.svg"
+              alt="Automatix Logo"
+              className="h-8 w-auto mr-2"
+              style={{ display: "inline-block" }}
+            />
+            
           </div>
           
           {/* Navigation Links */}
@@ -41,7 +47,7 @@ export function Navbar() {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-md border border-gray-300 dark:border-gray-500 bg-gray-200 dark:bg-[#2a2a2a] hover:bg-gray-300 dark:hover:bg-[#333] transition-colors"
+              className="p-2 rounded-md border-2 border-gray-400 dark:border-gray-400 bg-gray-200 dark:bg-[#2a2a2a] hover:bg-gray-300 dark:hover:bg-[#333] transition-colors shadow-sm"
               aria-label="Toggle theme"
               type="button"
             >
@@ -57,7 +63,7 @@ export function Navbar() {
             </button>
             
             {/* CTA Button */}
-            <button className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-[#2a2a2a] border border-gray-300 dark:border-gray-500 rounded-md text-gray-800 dark:text-white text-sm font-normal hover:bg-gray-300 dark:hover:bg-[#333] transition-colors">
+            <button className="flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-[#2a2a2a] border-2 border-gray-400 dark:border-gray-200 rounded-md text-gray-800 dark:text-white text-sm font-normal hover:bg-gray-300 dark:hover:bg-[#333] transition-colors shadow-sm">
               Let&apos;s Talk
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M7 7h10v10" />

@@ -1,5 +1,5 @@
 import ResultsDashboard from "./components/ResultsDashboard";
-import { HeroScroll } from "./components/HeroScroll";
+import { Hero } from "./components/Hero";
 import { CardStack } from "./components/ScrollCards";
 import { ScrollableCards } from "./components/ScrollableCards";
 import { ProductFeatures } from "./components/ProductFeatures";
@@ -13,7 +13,7 @@ export default function Home() {
         className="absolute inset-0 z-0"
         style={{
           backgroundImage: 'radial-gradient(circle, rgba(255,107,53,0.5) 1.5px, transparent 1.5px)',
-          backgroundSize: '32px 32px',
+          backgroundSize: '20px 20px',
           backgroundPosition: '0 0',
           WebkitMaskImage: `
             linear-gradient(to right, 
@@ -61,8 +61,8 @@ export default function Home() {
       {/* Navigation Header */}
       <Navbar />
 
-      {/* Hero Section with Scroll Animation */}
-      <HeroScroll />
+      {/* Hero Section */}
+      <Hero />
 
       <ResultsDashboard />
 

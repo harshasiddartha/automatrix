@@ -4,7 +4,7 @@ import React from "react";
 import { ContainerScroll } from "./ContainerScroll";
 import Image from "next/image";
 
-export function HeroScroll() {
+export function Hero() {
   return (
     <div className="flex flex-col">
       <ContainerScroll
@@ -17,16 +17,24 @@ export function HeroScroll() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight">
-              <span className="block text-[#FF6B35] mb-2">Automation Agency</span>
-              <span className="block text-gray-900 dark:text-white flex items-center justify-center gap-2 md:gap-3 mb-2 flex-wrap">
+            <h1 
+              className="text-center mb-6 leading-[1.1]"
+              style={{
+                fontFamily: 'var(--font-satoshi), "Satoshi Placeholder", sans-serif',
+                fontSize: 'clamp(40px, 6vw, 72px)',
+                fontWeight: 500,
+                textAlign: 'center',
+              }}
+            >
+              <span className="block mb-2" style={{ color: '#E87811' }}>Automation Agency</span>
+              <span className="block flex items-center justify-center gap-2 md:gap-3 mb-2 flex-wrap" style={{ color: 'white' }}>
                 Beyond
-                <svg className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 flex-shrink-0" fill="#E87811" viewBox="0 0 24 24">
                   <path d="M12 2L22 12L12 22L2 12L12 2Z" />
                 </svg>
                 Limits.
               </span>
-              <span className="block text-[#FF6B35]">Amplified With AI.</span>
+              <span className="block" style={{ color: '#E87811' }}>Amplified With AI.</span>
             </h1>
 
             {/* Sub-headline */}
