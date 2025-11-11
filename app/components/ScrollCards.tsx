@@ -76,8 +76,8 @@ export function CardStack() {
     const tick = () => {
       setScrollProgress(prev => {
         const target = targetProgressRef.current
-        // Lerp a little towards target each frame for smoothness
-        const next = lerp(prev, target, 0.15)
+        // Lerp more slowly for smoother, slower animation
+        const next = lerp(prev, target, 0.08)
         // If we're very close, snap and stop RAF
         if (Math.abs(next - target) < 0.0005) {
           cancelRAF()
@@ -105,7 +105,7 @@ export function CardStack() {
 
   return (
     <div ref={containerRef} className="relative bg-white dark:bg-black transition-colors">
-      <div className="h-[300vh]" />
+      <div className="h-[400vh]" />
 
       <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
         <div className="relative w-full max-w-5xl px-8 h-screen flex items-center justify-center">
@@ -118,11 +118,13 @@ export function CardStack() {
               cardProgress = Math.min((scrollProgress - cardStartPoint) / (1 / CARDS.length), 1)
             }
 
-            // Apply easing for smoother feel
-            const eased = cardProgress < 0 ? 0 : cardProgress > 1 ? 1 : (cardProgress ** 2) * (3 - 2 * cardProgress) // smoothstep
-            const yOffset = (1 - eased) * 80
-            const scale = 0.85 + eased * 0.15
-            const opacity = eased
+            // Apply smoother easing for gentler animation
+            const smoothstep = (t: number) => t * t * (3 - 2 * t)
+            const eased = cardProgress < 0 ? 0 : cardProgress > 1 ? 1 : smoothstep(cardProgress)
+            // Smoother transitions with eased values
+            const yOffset = (1 - eased) * 100
+            const scale = 0.8 + eased * 0.2
+            const opacity = Math.pow(eased, 0.8) // Gentler opacity fade
 
             return (
               <div
