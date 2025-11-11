@@ -3,13 +3,27 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #000000;
-  --foreground: #ededed;
-}
-
-:root.light {
   --background: #ffffff;
   --foreground: #1a1a1a;
+  --chart-bg: #ffffff;
+  --chart-grid: #e5e7eb;
+  --chart-axis: #d1d5db;
+  --chart-text: #6b7280;
+  --chart-line: #4b5563;
+  --chart-label-bg: #ffffff;
+  --chart-label-border: #e5e7eb;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #ededed;
+  --chart-bg: #1a1a1a;
+  --chart-grid: #2a2a2a;
+  --chart-axis: #333;
+  --chart-text: #999;
+  --chart-line: #ccc;
+  --chart-label-bg: #1a1a1a;
+  --chart-label-border: #2a2a2a;
 }
 
 @theme inline {

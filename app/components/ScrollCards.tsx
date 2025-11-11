@@ -51,18 +51,56 @@ const CARDS: StackCard[] = [
 
 export function CardStack() {
   const containerRef = useRef<HTMLDivElement>(null)
+  // The target scroll progress based on actual scroll position
+  const targetProgressRef = useRef(0)
+  // The smoothed/displayed scroll progress used by UI
   const [scrollProgress, setScrollProgress] = useState(0)
+  const rafRef = useRef<number | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY
       const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      const scrolled = scrollTop / docHeight
-      setScrollProgress(Math.min(scrolled, 1))
+      const scrolled = docHeight > 0 ? scrollTop / docHeight : 0
+      targetProgressRef.current = Math.max(0, Math.min(scrolled, 1))
+      // Start RAF loop if not running
+      if (rafRef.current === null) {
+        rafRef.current = requestAnimationFrame(tick)
+      }
+    }
+
+    const lerp = (start: number, end: number, t: number) => start + (end - start) * t
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+
+    const tick = () => {
+      setScrollProgress(prev => {
+        const target = targetProgressRef.current
+        // Lerp a little towards target each frame for smoothness
+        const next = lerp(prev, target, 0.15)
+        // If we're very close, snap and stop RAF
+        if (Math.abs(next - target) < 0.0005) {
+          cancelRAF()
+          return target
+        }
+        // Keep RAF going
+        rafRef.current = requestAnimationFrame(tick)
+        return next
+      })
+    }
+
+    const cancelRAF = () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current)
+        rafRef.current = null
+      }
     }
 
     window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      cancelRAF()
+    }
   }, [])
 
   return (
@@ -80,14 +118,16 @@ export function CardStack() {
               cardProgress = Math.min((scrollProgress - cardStartPoint) / (1 / CARDS.length), 1)
             }
 
-            const yOffset = (1 - cardProgress) * 80
-            const scale = 0.85 + cardProgress * 0.15
-            const opacity = cardProgress
+            // Apply easing for smoother feel
+            const eased = cardProgress < 0 ? 0 : cardProgress > 1 ? 1 : (cardProgress ** 2) * (3 - 2 * cardProgress) // smoothstep
+            const yOffset = (1 - eased) * 80
+            const scale = 0.85 + eased * 0.15
+            const opacity = eased
 
             return (
               <div
                 key={card.id}
-                className="absolute w-96 pointer-events-auto"
+                className="absolute w-96 pointer-events-auto will-change-transform will-change-opacity"
                 style={{
                   transform: `translateX(-50%) translateY(calc(-50% + ${yOffset}px)) scale(${scale})`,
                   opacity: opacity,
@@ -103,15 +143,15 @@ export function CardStack() {
                     p-8 flex flex-col justify-between
                     border border-gray-200 dark:border-gray-700
                     h-96
-                    transition-colors
+                    transition-[colors,box-shadow] duration-500 ease-out
                   `}
                 >
                   <div>
-                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">{card.title}</h2>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 transition-colors">{card.subtitle}</p>
-                    <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed transition-colors">{card.description}</p>
+                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-500 ease-out">{card.title}</h2>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 transition-colors duration-500 ease-out">{card.subtitle}</p>
+                    <p className="text-slate-700 dark:text-slate-300 text-sm leading-relaxed transition-colors duration-500 ease-out">{card.description}</p>
                   </div>
-                  <button className="bg-orange-500 hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 text-white font-semibold px-6 py-2 rounded-full w-fit transition-colors text-sm">
+                  <button className="bg-orange-500 hover:bg-orange-600 dark:bg-orange-600 dark:hover:bg-orange-700 text-white font-semibold px-6 py-2 rounded-full w-fit transition-colors duration-300 ease-out text-sm">
                     See Case Study
                   </button>
                 </div>

@@ -27,7 +27,7 @@ export function Hero() {
               }}
             >
               <span className="block mb-2" style={{ color: '#E87811' }}>Automation Agency</span>
-              <span className="block flex items-center justify-center gap-2 md:gap-3 mb-2 flex-wrap" style={{ color: 'white' }}>
+              <span className="block flex items-center justify-center gap-2 md:gap-3 mb-2 flex-wrap light:text-black dark:text-white">
                 Beyond
                 <svg className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 flex-shrink-0" fill="#E87811" viewBox="0 0 24 24">
                   <path d="M12 2L22 12L12 22L2 12L12 2Z" />

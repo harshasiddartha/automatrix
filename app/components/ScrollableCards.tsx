@@ -81,7 +81,7 @@ export function ScrollableCards() {
   })
 
   return (
-    <div ref={containerRef} className="relative light:bg-white dark:bg-black min-h-[500vh]">
+    <div ref={containerRef} className="relative bg-white dark:bg-black min-h-[500vh] transition-colors">
       {/* Grid Pattern Background */}
       <div 
         className="absolute inset-0 z-0"
@@ -145,24 +145,24 @@ export function ScrollableCards() {
                   zIndex,
                 }}
               >
-                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50">
+                <div className="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50 transition-colors">
                   <div className="grid md:grid-cols-2 min-h-[600px]">
                     {/* Left Half - Content */}
-                    <div className="p-12 flex flex-col justify-between bg-white">
+                    <div className="p-12 flex flex-col justify-between bg-white dark:bg-[#1a1a1a] transition-colors">
                       <div>
-                        <h2 className="text-5xl font-bold text-black mb-3">
+                        <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-3 transition-colors">
                           {card.title}
                         </h2>
                         <div className="flex items-center gap-2 mb-8">
                           <span className="text-lg">{card.flag}</span>
-                          <p className="text-gray-500 text-base">
+                          <p className="text-gray-600 dark:text-gray-400 text-base transition-colors">
                             {card.subtitle}
                           </p>
                         </div>
-                        <h3 className="text-lg font-bold text-black mb-4">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 transition-colors">
                           Project Description:
                         </h3>
-                        <p className="text-black text-base leading-relaxed mb-8">
+                        <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed mb-8 transition-colors">
                           {card.description}
                         </p>
                       </div>
@@ -172,7 +172,7 @@ export function ScrollableCards() {
                     </div>
 
                     {/* Right Half - Image */}
-                    <div className="relative bg-gray-100 overflow-hidden">
+                    <div className="relative bg-gray-100 dark:bg-[#0f0f0f] overflow-hidden transition-colors">
                       <motion.img
                         src={card.image}
                         alt={card.imageAlt}
